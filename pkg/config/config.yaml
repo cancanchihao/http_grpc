@@ -1,0 +1,14 @@
+mysql:
+  dsn: root:20040326hyc@tcp(localhost:3306)/can?charset=utf8mb4&parseTime=True&loc=Local
+
+redis:
+  addr: localhost:6379
+  password: ""
+  db: 2
+
+Grpc:
+  Port: 50051
+
+Http:
+  Port: 8080
+

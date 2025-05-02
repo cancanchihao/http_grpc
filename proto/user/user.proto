@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package user;
+
+import "google/protobuf/wrappers.proto";
+option go_package = "http_grpc/proto/user";
+
+// 用户信息结构
+message User {
+  int64 id = 1;
+  string userAccount = 2;
+  string userPassword = 3;
+}
+
+// 通用响应
+message CommonResponse {
+  string message = 1;
+}
+
+// 登录请求与响应
+message LoginRequest {
+  string userAccount = 1;
+  string userPassword = 2;
+}
+message LoginResponse {
+  int64 userId = 1;
+  string userAccount = 2;
+  string message = 3;
+}
+
+// ID 请求
+message IdRequest {
+  int64 id = 1;
+}
+
+// Account 请求
+message AccountRequest {
+  string userAccount = 1;
+}
+
+// 更新密码请求
+message UpdatePasswordRequest {
+  int64 id = 1;
+  string newPassword = 2;
+}
+
+// 分页请求与用户列表响应
+message ListUsersRequest {
+  int32 page = 1;
+  int32 size = 2;
+}
+message ListUsersResponse {
+  repeated User users = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+// 更新用户请求
+message UpdateUserRequest {
+  int64 id = 1;
+  google.protobuf.StringValue username = 4;
+  google.protobuf.StringValue avatarUrl = 5;
+  google.protobuf.Int32Value gender = 6;
+  google.protobuf.StringValue phone = 7;
+  google.protobuf.StringValue email = 8;
+}
+
+// gRPC 用户服务接口
+service UserService {
+  rpc CreateUser (User) returns (CommonResponse);
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc GetUserByID (IdRequest) returns (User);
+  rpc GetUserByAccount (AccountRequest) returns (User);
+  rpc UpdatePassword (UpdatePasswordRequest) returns (CommonResponse);
+  rpc ListUsers (ListUsersRequest) returns (ListUsersResponse);
+  rpc DeleteUser (IdRequest) returns (CommonResponse);
+  rpc UpdateUser (UpdateUserRequest) returns (CommonResponse);
+}
