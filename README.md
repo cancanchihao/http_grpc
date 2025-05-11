@@ -6,5 +6,5 @@
 
 service使用了协程池与数据对象池，协程池中为session服务与user提供协程使用。
 
-session为自己搭建的一个小型session实现，内置LRU的GC管理，在服务启动与结束时会将记录存储在redis以实现session持久化。
+session为自己搭建的一个小型session实现，内置volatile-LRU管理，在服务启动与结束时会将记录存储在redis以实现session持久化。
 
