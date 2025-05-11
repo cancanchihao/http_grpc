@@ -19,12 +19,12 @@ type Task struct {
 
 // RoutinePool 协程池
 type RoutinePool struct {
-	TaskQueue  chan Task
-	numWorkers int
+	TaskQueue  chan Task      // 协程内部执行任务
+	numWorkers int            // 协程数
 	wg         sync.WaitGroup // 等待所有任务完成
-	closeOnce  sync.Once      // 保证只关闭一次
-	closedChan chan struct{}  // 用于优雅退出
-	timeout    time.Duration  // 设置超时时间
+	closeOnce  sync.Once      // 只关闭一次
+	closedChan chan struct{}  // 退出
+	timeout    time.Duration  // 超时时间
 }
 
 // NewPool 创建协程池
